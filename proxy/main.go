@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
@@ -14,7 +15,7 @@ func handler(c *gin.Context) {
 		return
 	}
 
-	req, err := http.NewRequest(c.Request.Method, "https://api.openai.com"+c.Request.URL.Path, bytes.NewBuffer(body))
+	req, err := http.NewRequest(c.Request.Method, "https://api.openai.com/v1"+c.Request.URL.Path, bytes.NewBuffer(body))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -42,5 +43,8 @@ func handler(c *gin.Context) {
 func main() {
 	r := gin.Default()
 	r.Any("/*any", handler)
-	r.Run(":3000")
+	err := r.Run(":3000")
+	if err != nil {
+		fmt.Println("Gin startup err", err)
+	}
 }

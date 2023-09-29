@@ -3,9 +3,11 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
+	"os"
+
+	"github.com/gin-gonic/gin"
 )
 
 func handler(c *gin.Context) {
@@ -43,7 +45,11 @@ func handler(c *gin.Context) {
 func main() {
 	r := gin.Default()
 	r.Any("/*any", handler)
-	err := r.Run(":3000")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+	err := r.Run(port)
 	if err != nil {
 		fmt.Println("Gin startup err", err)
 	}

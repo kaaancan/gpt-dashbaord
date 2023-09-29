@@ -18,6 +18,7 @@ func handler(c *gin.Context) {
 		return
 	}
 
+	openAiRequestUri := c.Request.RequestURI
 	req, err := http.NewRequest(c.Request.Method, "https://api.openai.com/v1"+c.Request.URL.Path, bytes.NewBuffer(body))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -52,7 +53,7 @@ func main() {
 	}
 	log.Println("Runng in port:", port)
 
-	err := r.Run(":"+port)
+	err := r.Run(":" + port)
 	if err != nil {
 		fmt.Println("Gin startup err", err)
 	}

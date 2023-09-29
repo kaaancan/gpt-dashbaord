@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 
@@ -47,9 +48,11 @@ func main() {
 	r.Any("/*any", handler)
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "3000"
+		port = "1007"
 	}
-	err := r.Run(port)
+	log.Println("Runng in port:", port)
+
+	err := r.Run(":"+port)
 	if err != nil {
 		fmt.Println("Gin startup err", err)
 	}

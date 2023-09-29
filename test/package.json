@@ -1,0 +1,14 @@
+{
+  "name": "GPT-Dashboard Test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Kaan Götürmen https://github.com/kaaancan",
+  "license": "ISC",
+  "dependencies": {
+    "openai": "^4.11.0"
+  }
+}

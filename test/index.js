@@ -1,5 +1,6 @@
+const { config } = require("dotenv");
 const { default: OpenAI } = require("openai");
-
+config();
 
 /**
  * This needs to be the proxy host, its the address of the server that is running the go-proxy
@@ -13,6 +14,8 @@ const proxyHost = process.env.PROXY_HOST || "http://localhost:1007/";
 const OPENAPI_VERSION = "v1";
 
 console.log("Using proxy host: " + proxyHost);
+
+
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,

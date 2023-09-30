@@ -3,6 +3,7 @@ package chat_completion
 import (
 	"bytes"
 	"client-go/model"
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -53,6 +54,14 @@ func Handler(c *gin.Context) {
 	defer resp.Body.Close()
 
 	respBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Parse the JSON response
+	var result model.CreateChatCompletionResponse
+	err = json.Unmarshal(respBody, &result)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
